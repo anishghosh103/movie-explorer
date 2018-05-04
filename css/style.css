@@ -1,0 +1,200 @@
+
+::-webkit-input-placeholder {
+    color: hsl(0, 14%, 83%);
+}
+::-moz-placeholder {
+    color: hsl(0, 14%, 83%);
+}
+
+#main-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.option-group {
+    background: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: #495057;
+    border: 1px solid hsl(210, 14%, 83%);
+    cursor: pointer;
+}
+.option-group:hover {
+    background: #fff url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'><polyline fill='hsl(0, 14%, 50%)' stroke-linecap='round' stroke-linejoin='round' points='2.5,3 0,0 5,0'/></svg>") no-repeat right .5rem center;
+    background-size: 12px 15px;
+}
+.option-group:active {
+    border: 1px solid (210, 14%, 75%);
+}
+
+.option-group option {
+    padding: 10px;
+}
+
+#search-area {
+    border-bottom: 1px solid hsl(210, 14%, 83%);
+    font-family: "Raleway";
+    font-weight: 200;
+    font-size: 1.5em;
+    display: flex;
+    flex-flow: row wrap;
+    flex-shrink: 0;
+}
+
+#search-type,
+#search-year,
+#search-input,
+#search-button {
+    outline: none;
+    border: none;
+    border-left: 1px solid hsl(210, 15%, 83%);
+    padding: 0.75em 1.05em 0.75em 1.05em;
+}
+
+#search-input {
+    flex: 1;
+}
+
+#search-year {
+    width: 4.6em;
+    -moz-appearance: textfield;
+}
+#search-year::-webkit-outer-spin-button, #search-year::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#search-button {
+    border: none;
+    background: white;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+#search-button:hover {
+    background: hsl(0, 14%, 97%);
+}
+#search-button:active {
+    background: hsl(0, 14%, 93%);
+}
+#search-button svg {
+    border: none;
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    margin-bottom: -1px;
+}
+#search-button svg path {
+    fill: hsl(0, 14%, 83%);
+    transition: all .1s ease-in-out;
+}
+#search-input:focus ~ button svg path,
+#search-button:hover svg path {
+    fill: hsl(0, 14%, 50%);
+}
+
+@media all and (max-width: 768px) {
+    #search-area {
+        font-size: 1.25rem;
+        justify-content: center;
+        background: hsl(0, 14%, 97%);
+    }
+
+    #search-input-group {
+        order: -1;
+        flex-basis: 100%!important;
+        border-bottom: 1px solid hsl(0, 14%, 83%);
+    }
+
+    #search-type {
+        flex: 1;
+    }
+}
+
+@media all and (max-width: 576px) {
+    #search-year, #search-type { font-size: 0.85em; }
+}
+
+/* Movie List Area */
+
+#movie-list-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#movie-list .card {
+    cursor: pointer;
+}
+
+#movie-list .card-header {
+    height: 300px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+#movie-list .card-title {
+    line-height: 1.6rem;
+    height: 1.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Movie Details */
+
+#movie-details {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    font-family: 'Montserrat';
+    overflow: auto;
+    transition: all .2s ease-in-out;
+    z-index: 3;
+}
+
+#movie-details .image {
+    margin: 1.5rem 0;
+    width: 75%;
+    overflow: hidden;
+    background-color: teal;
+}
+
+#movie-details .back { cursor: pointer; }
+#movie-details .title { font-weight: 600; }
+
+#movie-details .value {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+@media all and (max-width: 768px) {
+    #movie-details .image {
+        width: 100%;
+        height: 300px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    #movie-details .image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+    }
+    #movie-details .rating .text { display: none; }
+    #movie-details .rating {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}
