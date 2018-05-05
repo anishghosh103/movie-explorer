@@ -11,8 +11,6 @@ let initiateSearch = () => {
         term: $("#search-input").val()
     };
 
-    console.log(query.type);
-
     if (query.term === "") return;
 
     ViewUtils.clearMovieList();

@@ -33,7 +33,7 @@ let ViewUtils = (() => {
     };
 
     util.displayMovieDetails = (movie) => {
-        console.log(movie);
+        // console.log(movie);
         $("#movie-details .image img").attr("src", movie.Poster === "N/A" ? "images/dummy.png" : movie.Poster);
         $("#movie-details .rating .votes").text(movie.imdbVotes);
         $("#movie-details .rating .value").text(movie.imdbRating);
