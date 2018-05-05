@@ -4,7 +4,7 @@ let ViewUtils = (() => {
 
     util.showFetchingData = () => {
         let html = `
-            <div class="mx-auto text-muted" style="font-size:2rem;font-weight:200;">Searching...</div>
+            <div class="mx-auto text-muted mt-5" style="font-size:1.75rem;font-weight:200;">Searching...</div>
         `;
         $("#movie-list").html(html);
     };
@@ -19,7 +19,8 @@ let ViewUtils = (() => {
                 <div class="card w-100 shadow-sm" title="${movie.Title}" style="font-family:'Montserrat';" id="movie-item-${movie.imdbID}" onclick="displayMovieDetails('${movie.imdbID}')">
                     <div class="card-header" style="background-image:url(${movie.Poster === "N/A" ? "" : movie.Poster});background-color:${'#'+(Math.random()*0xFFFFFF<<0).toString(16)};"></div>
                     <div class="card-body p-2">
-                        <h4 class="card-title h6 m-0" style="font-weight:600;">${movie.Title}(${movie.Year})</h4>
+                        <h6 class="card-title m-0" style="font-weight:600;">${movie.Title} (${movie.Year})</h6>
+                        <p class="card-text"></p>
                     </div>
                 </div>
             </div>
@@ -32,11 +33,15 @@ let ViewUtils = (() => {
     };
 
     util.displayMovieDetails = (movie) => {
+        console.log(movie);
         $("#movie-details .image img").attr("src", movie.Poster === "N/A" ? "images/dummy.png" : movie.Poster);
         $("#movie-details .rating .votes").text(movie.imdbVotes);
         $("#movie-details .rating .value").text(movie.imdbRating);
         $("#movie-details .title").text(movie.Title);
+        $("#movie-details .genre").text(movie.Genre);
         $("#movie-details .starring").text(`Starring: ${movie.Actors}`);
+        $("#movie-details .released").text(`Release Date: ${movie.Released}`);
+        $("#movie-details .runtime").text(`Runtime: ${movie.Runtime}`);
         $("#movie-details .plot").text(movie.Plot === "N/A" ? "" : movie.Plot);
         $("#movie-details").css("left", "0");
     };
@@ -67,6 +72,17 @@ let ViewUtils = (() => {
             loadMoreBtn.addClass("disabled");
             loadMoreBtn.text("Loading...")
         }
+    };
+
+    util.showError = (error) => {
+        // console.log(error);
+        if (error === "timeout" || error === "error") {
+            error = "Oops! Something went wrong. Please try again.";
+        }
+        let html = `
+            <div class="mx-auto text-muted mt-5" style="font-size:1.25rem;font-weight:200;">${error}</div>
+        `;
+        $("#movie-list").html(html);
     };
 
     return util;

@@ -6,42 +6,119 @@
     color: hsl(0, 14%, 83%);
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: hsla(0, 0%, 75%, 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: hsla(0, 0%, 75%, 0.8);
+}
+::-webkit-scrollbar-thumb:active {
+    background: hsla(0, 0%, 75%, 1);
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 #main-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background: hsl(240, 50%, 95%);
 }
 
 .option-group {
     background: #fff;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    color: #495057;
-    border: 1px solid hsl(210, 14%, 83%);
+    border: none!important;
+    color: hsl(240, 9%, 31%);
     cursor: pointer;
+    position: relative;
+    height: 100%;
+    width: 6.75em;
+    position: relative;
+    font-weight: 300;
 }
-.option-group:hover {
-    background: #fff url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'><polyline fill='hsl(0, 14%, 50%)' stroke-linecap='round' stroke-linejoin='round' points='2.5,3 0,0 5,0'/></svg>") no-repeat right .5rem center;
+.option-group:hover .option-placeholder::after {
+    content: '';
+    background: #fff url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'><polyline fill='hsl(240, 9%, 31%)' stroke-linecap='round' stroke-linejoin='round' points='2.5,3 0,0 5,0'/></svg>");
     background-size: 12px 15px;
+    width: 12px;
+    height: 15px;
+    position: absolute;
+    right: 1.05em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.option-group .option-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    display: none;
+    flex-direction: column;
+    background: white;
+    margin: 2px 0;
+    border: 1px solid hsl(240, 14%, 83%);
+    z-index: 2;
+}
+.option-group .option-item {
+    padding: 15px 20px;
+    font-size: 1.25rem;
+    border-bottom: 1px solid hsl(240, 15%, 83%);
+}
+.option-group .option-item:last-child { border: none; }
+.option-group .option-item:hover {
+    background: hsl(240, 15%, 95%);
 }
 .option-group:active {
-    border: 1px solid (210, 14%, 75%);
+    border: 1px solid hsl(210, 14%, 95%);
 }
 
-.option-group option {
-    padding: 10px;
+@media all and (max-width: 768px) {
+    .option-group .option-placeholder { display: none!important; }
+    .option-group .option-list {
+        display: flex !important;
+        top: 0;
+        left: 0;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+        border: 0;
+    }
+    .option-group .option-item {
+        border-bottom: none;
+        border-right: 1px solid hsl(240, 15%, 83%);
+        flex: 1;
+        padding: 0.75em 1.05em 0.75em 1.05em;;
+        font-size: 1em;
+        text-align: center;
+    }
+    .option-group .option-item:last-child { border: none; }
+    .option-group .option-item.selected {
+        background: hsl(240, 14%, 95%);
+    }
+}
+
+@media all and (max-width: 300px) {
+    .option-group .option-item {
+        padding-left: 0.25em!important;
+        padding-right: 0.25em!important;
+    }
 }
 
 #search-area {
-    border-bottom: 1px solid hsl(210, 14%, 83%);
+    border-bottom: 2px solid hsl(240, 50%, 75%);
     font-family: "Raleway";
     font-weight: 200;
     font-size: 1.5em;
     display: flex;
     flex-flow: row wrap;
     flex-shrink: 0;
+    box-shadow: 0px 2px 25px hsla(240, 14%, 50%, 0.3);
 }
 
 #search-type,
@@ -50,7 +127,7 @@
 #search-button {
     outline: none;
     border: none;
-    border-left: 1px solid hsl(210, 15%, 83%);
+    border-left: 1px solid hsl(240, 15%, 83%);
     padding: 0.75em 1.05em 0.75em 1.05em;
 }
 
@@ -103,15 +180,16 @@
         justify-content: center;
         background: hsl(0, 14%, 97%);
     }
-
     #search-input-group {
         order: -1;
         flex-basis: 100%!important;
         border-bottom: 1px solid hsl(0, 14%, 83%);
     }
-
     #search-type {
         flex: 1;
+    }
+    #search-input {
+        border: none;
     }
 }
 
@@ -146,13 +224,17 @@
     white-space: nowrap;
 }
 
+#movie-list .card-text {
+    font-size: 1.2rem;
+}
+
 /* Movie Details */
 
 #movie-details {
     position: fixed;
     top: 0;
     left: 100%;
-    font-family: 'Montserrat';
+    font-family: 'Raleway';
     overflow: auto;
     transition: all .2s ease-in-out;
     z-index: 3;
@@ -168,7 +250,9 @@
 #movie-details .back { cursor: pointer; }
 #movie-details .title { font-weight: 600; }
 
-#movie-details .value {
+#movie-details .rating { font-family: 'Montserrat'; }
+
+#movie-details .rating .value {
     font-size: 2rem;
     font-weight: 600;
 }

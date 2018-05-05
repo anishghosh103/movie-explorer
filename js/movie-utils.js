@@ -2,7 +2,7 @@
 let MovieUtils = (() => {
     let util = {};
 
-    const apikey = "c9455792"; //9a016429
+    const apikey = "9a016429"; //9a016429/c9455792
     const urlTemplate = `https://www.omdbapi.com/?apikey=${apikey}&type=movie`;
 
     let movies = [];
@@ -13,7 +13,7 @@ let MovieUtils = (() => {
 
         $.ajax({
             type: "GET",
-            datatype: "json",
+            dataType: "json",
             url,
             success: data => {
                 if (data.Response === "False") return callback(data.Error);
@@ -23,11 +23,11 @@ let MovieUtils = (() => {
 
                 callback(null, { status: 1, movies: data.Search, morePages: queryState.page > 1 });
 
-                data.Search.map(movie => movie.imdbID).forEach(id => util.getMovieDetails(id));
+                data.Search.forEach(movie => util.getMovieDetails(movie.imdbID));
             },
-            error: err => callback(err),
+            error: (err, statusText) => callback(statusText),
             beforeSend: () => callback(null, { status: 0 }),
-            timeout: 10000
+            timeout: 3000
         });
     };
 
@@ -36,16 +36,16 @@ let MovieUtils = (() => {
 
         $.ajax({
             type: "GET",
-            datatype: "json",
+            dataType: "json",
             url,
             success: data => {
                 if (data.Response === "False") return callback(data.Error);
                 callback(null, { status: 1, movies: [data], morePages: false });
                 util.getMovieDetails(data.imdbID);
             },
-            error: err => callback(err),
+            error: (err, statusText) => callback(statusText),
             beforeSend: () => callback(null, { status: 0 }),
-            timeout: 10000
+            timeout: 3000
         });
     };
 
@@ -62,20 +62,20 @@ let MovieUtils = (() => {
         let movie = movies.find(movie => movie && movie.imdbID === id);
         if (movie) return callback && callback(null, { status: 1, movie });
 
-        let url = `${urlTemplate}&i=${id}`;
+        let url = `${urlTemplate}&i=${id}&plot=full`;
 
         $.ajax({
             type: "GET",
-            datatype: "json",
+            dataType: "json",
             url,
             success: data => {
                 if (data.Response === "False") return callback && callback(data.Error);
                 if (callback) callback(null, { status: 1, movie: data });
-                movies.push(movie);
+                movies.push(data);
             },
-            error: err => callback && callback(err),
+            error: (err, statusText) => callback && callback(statusText),
             beforeSend: () => callback && callback(null, { status: 0 }),
-            timeout: 10000
+            timeout: 5000
         });
     };
 

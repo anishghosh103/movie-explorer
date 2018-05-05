@@ -15,10 +15,18 @@
     <div id="main-container">
 
         <div id="search-area" class="w-100">
-            <select id="search-type" class="option-group">
+            <!-- <select id="search-type" class="option-group">
                 <option value="title" selected>By Title</option>
                 <option value="imdb-id">By IMDb ID</option>
-            </select>
+            </select> -->
+            <div id="search-type" class="option-group">
+                <div class="option-placeholder"></div>
+                <div class="option-list">
+                    <div class="option-item selected" data-value="title">Title</div>
+                    <div class="option-item" data-value="imdb-id">IMDb ID</div>
+                </div>
+                
+            </div>
             <input type="number" id="search-year" class="input" placeholder="Year" oninput="checkYearLength(this)">
             <div id="search-input-group" class="d-flex" style="flex:1;">
                 <input type="text" id="search-input" class="input" placeholder="Find Movies...">
@@ -34,35 +42,42 @@
         </div>
 
         <div id="movie-details" class="container-fluid w-100 h-100 bg-white">
-                <div class="row">
-                    <div class="col-12 col-md-3 d-flex flex-column align-items-center p-0">
-                        <div class="image shadow">
-                            <img class="img-fluid w-100" onerror="$(this).attr('src', 'images/dummy.png')">
+            <div class="row">
+                <div class="col-12 col-md-3 d-flex flex-column align-items-center p-0">
+                    <div class="image shadow">
+                        <img class="img-fluid w-100" onerror="$(this).attr('src', 'images/dummy.png')">
+                    </div>
+                    <div class="rating d-flex flex-row justify-content-center align-items-center">
+                        <div class="text mr-3 text-center">
+                            <div class="h5 mb-1">Rating:</div>
+                            <div class="h6 m-0 text-muted votes"></div>
                         </div>
-                        <div class="rating d-flex flex-row justify-content-center align-items-center">
-                            <div class="text mr-3 text-center">
-                                <div class="h5 mb-1">Rating:</div>
-                                <div class="h6 m-0 text-muted votes"></div>
-                            </div>
-                            <div class="value p-2 rounded-circle bg-white"></div>
+                        <div class="value p-2 rounded-circle bg-white"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-9 py-4 px-3">
+                    <div class="header d-flex flex-row mb-4 text-dark">
+                        <div class="back ml-1" style="margin-top:7px;">
+                            <svg width="20px" height="20px" viewBox="0,0,100,100">
+                                <path d="M40,10 L10,50 L40,90 M10,50 L90,50" stroke="hsl(0,0%,15%)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                            </svg>
+                        </div>
+                        <div class="d-flex flex-column ml-3">
+                            <div class="title h3"></div>
+                            <div class="genre h6 text-muted"></div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-9 py-4 px-3">
-                        <div class="header d-flex flex-row mb-5 align-items-center text-dark">
-                            <div class="back">
-                                <svg width="20px" height="20px" viewBox="0,0,100,100">
-                                    <path d="M40,10 L10,50 L40,90 M10,50 L90,50" stroke="hsl(0,0%,15%)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                                </svg>
-                            </div>
-                            <div class="title ml-4 h3"></div>
+                    <div class="mx-2">
+                        <div class="text-muted">
+                            <h6 class="starring mb-1"></h6>
+                            <h6 class="released mb-1"></h6>
+                            <h6 class="runtime mb-4"></h6>
                         </div>
-    
-                        <div class="starring text-muted h6 mb-4"></div>
-    
-                        <div class="plot h6"></div>
+                        <h6 class="plot"></h6>
                     </div>
                 </div>
             </div>
+        </div>
 
     </div>
 
